@@ -32,54 +32,15 @@ public class PobedaTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, Duration.ofMillis(10));
+        driver.get("https://pobeda.aero/");
     }
-
     @Test
-    public void pobedaTestSwitchLang(){
-        driver.get("https://www.google.com");
-        driver.findElement(By.cssSelector("[title='Поиск']")).sendKeys("Сайт компании Победа");
-        driver.findElement(By.cssSelector("[title='Поиск']")).sendKeys(Keys.ENTER);
-        driver.findElement(By.cssSelector("h3")).click();
-
-        custoWaitElement(driver.findElement(By.xpath("//div[text()='Полетели в Сочи!']")));
-        Assert.assertEquals(driver.findElement(By.xpath("//div[text()='Полетели в Сочи!']")).getText(), "Полетели в Сочи!");
-
-        List<WebElement> elements = new ArrayList<>();
-        elements = driver.findElements(By.cssSelector(".dp-1c04wlv-root-root"));
-        elements.get(0).click();
-        custoWaitElement(driver.findElement(By.xpath("//div[text()='English']")));
-        driver.findElement(By.xpath("//div[text()='English']")).click();
-
-        List<String> engTextActual = new ArrayList<>();
-        List<String> engTextExpected = Arrays.asList("Ticket search", "Online check-in", "Manage my booking");
-
-        elements = driver.findElements(By.cssSelector(".dp-1glhebn-root-textVisible"));
-        for (int i=0;i<elements.size();i++){
-            WebElement elem = elements.get(i);
-            wait.until(ExpectedConditions.textToBePresentInElement(elem,engTextExpected.get(i)));
-            Assert.assertEquals(elements.get(i).getText(), engTextExpected.get(i));
-        }
+    public void testInformationMenu(){
+        MainPage mainPage = new MainPage(driver);
+        InfoPage infoPage = new InfoPage(driver);
+        mainPage.siteIsOpen();
+        infoPage.informationMenuIsOpen();
     }
-
-    private void custoWaitElement(WebElement element) {
-        float minTime = 0;
-        float maxTime = 2000;
-        long startLoadingTimme = System.currentTimeMillis();
-
-        while (element.isDisplayed()){
-            if(minTime <= maxTime){
-                minTime = System.currentTimeMillis() - startLoadingTimme;
-            }else{
-                System.out.println("елемент загрузился за "+minTime+" мс");
-                break;
-            }
-            if(!element.isDisplayed()) {
-                System.out.println("елемент не загрузился за "+minTime+" мс");
-            }
-
-        }
-    }
-
     @After
     public void tearDown(){
         driver.quit();
