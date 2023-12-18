@@ -10,7 +10,7 @@ public class PikabuTest {
     WebDriver driver;
     @Before
     public void setUp(){
-        System.setProperty("webdriver.chrome.driver", "/TestsPikabu/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\_GIT\\TestsPikabu\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
@@ -23,17 +23,19 @@ public class PikabuTest {
 
     driver.findElement(By.cssSelector(".header-right-menu__login-button")).click();
     driver.findElement(By.cssSelector(".auth-modal")).isDisplayed();
-    driver.findElement(By.cssSelector("\".auth-modal .input__input[placeholder='Логин']\"")).isDisplayed();
+    driver.findElement(By.cssSelector(".auth-modal .input__input[placeholder='Логин']")).isDisplayed();
     driver.findElement(By.cssSelector(".auth-modal .input__input[placeholder='Пароль']")).isDisplayed();
     driver.findElement(By.cssSelector(".auth-modal .button__title")).isDisplayed();
 
-    driver.findElement(By.cssSelector("\".auth-modal .input__input[placeholder='Логин']\"")).sendKeys("Qwerty");
+    driver.findElement(By.cssSelector(".auth-modal .input__input[placeholder='Логин']")).sendKeys("Qwerty");
     driver.findElement(By.cssSelector(".auth-modal .input__input[placeholder='Пароль']")).sendKeys("Qwerty");
     driver.findElement(By.cssSelector(".auth-modal .button__title")).click();
     driver.findElement(By.cssSelector(".popup__content .auth__error.auth__error_top")).isDisplayed();
 
+
+
     String text =  driver.findElement(By.cssSelector(".popup__content .auth__error.auth__error_top")).getText();
-    Assert.assertEquals(text,"Ошибка проверки данных. Повторите процесс авторизации, пожалуйста");
+    Assert.assertEquals(text,"Ошибка. Вы ввели неверные данные авторизации");
     }
 
     @After
