@@ -31,15 +31,27 @@ public class PobedaTest {
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, Duration.ofMillis(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get("https://pobeda.aero/");
     }
     @Test
     public void testInformationMenu(){
-        MainPage mainPage = new MainPage(driver);
-        InfoPage infoPage = new InfoPage(driver);
+        MainPage mainPage = new MainPage(driver, wait);
+        InfoPage infoPage = new InfoPage(driver, wait);
+
         mainPage.siteIsOpen();
         infoPage.informationMenuIsOpen();
+    }
+    @Test
+    public void testInValidSearchTicket(){
+        MainPage mainPage = new MainPage(driver, wait);
+        OrderTiket orderTiket = new OrderTiket(driver, wait);
+
+        mainPage.siteIsOpen();
+        orderTiket.searchTiketIsOpen();
+        orderTiket.enterSearchCriteria();
+        orderTiket.clickButtonSearch();
+        orderTiket.checkFieldThere();
     }
     @After
     public void tearDown(){

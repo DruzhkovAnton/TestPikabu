@@ -6,8 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage {
+    private  WebDriverWait wait;
     private WebDriver driver;
     @FindBy(xpath = "//img[contains(@src, 'logo-rus-white')]")
     private WebElement logo;
@@ -19,11 +22,18 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
+    public MainPage(WebDriver driver, WebDriverWait wait) {
+        this.driver = driver;
+        this.wait = wait;
+        PageFactory.initElements(driver, this);
+    }
+
     private String titleText(){
         return driver.getTitle();
     }
 
     private boolean logoOnDisplay(){
+        wait.until(ExpectedConditions.visibilityOf(logo));
         return logo.isDisplayed();
     }
 
