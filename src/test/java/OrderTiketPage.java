@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class OrderTiket {
+public class OrderTiketPage {
     private WebDriver driver;
     private WebDriverWait wait;
     @FindBy(xpath = "//div[contains(@class, 'dp-1glhebn-root-textVisible') and text() = 'Поиск билета']")
@@ -26,7 +26,7 @@ public class OrderTiket {
     @FindBy(css = "[data-errored='true'] [placeholder='Туда']")
     private WebElement dataErorThere;
 
-    public OrderTiket(WebDriver driver, WebDriverWait wait){
+    public OrderTiketPage(WebDriver driver, WebDriverWait wait){
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
@@ -42,8 +42,7 @@ public class OrderTiket {
         return cityFrom.isDisplayed();
     }
     private void cityFromInput(String city){
-        wait.until(ExpectedConditions.visibilityOf(cityFrom));
-        cityFrom.sendKeys("Москва");
+        cityFrom.sendKeys(city);
         cityFrom.sendKeys(Keys.ENTER);
     }
 
@@ -54,8 +53,7 @@ public class OrderTiket {
     }
 
     private void cityInInput(String city){
-        wait.until(ExpectedConditions.visibilityOf(cityFrom));
-        cityIn.sendKeys("Санкт-Петербург");
+        cityIn.sendKeys(city);
         cityIn.sendKeys(Keys.ENTER);
     }
 

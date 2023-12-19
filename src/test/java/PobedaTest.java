@@ -1,23 +1,14 @@
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-import java.sql.Array;
 import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class PobedaTest {
@@ -45,13 +36,25 @@ public class PobedaTest {
     @Test
     public void testInValidSearchTicket(){
         MainPage mainPage = new MainPage(driver, wait);
-        OrderTiket orderTiket = new OrderTiket(driver, wait);
+        OrderTiketPage orderTiket = new OrderTiketPage(driver, wait);
 
         mainPage.siteIsOpen();
         orderTiket.searchTiketIsOpen();
         orderTiket.enterSearchCriteria();
         orderTiket.clickButtonSearch();
         orderTiket.checkFieldThere();
+    }
+
+    @Test
+    public void testBookingManagement(){
+        MainPage mainPage = new MainPage(driver, wait);
+        BookingManagementPage bookingManagementPage = new BookingManagementPage(driver, wait);
+
+        mainPage.siteIsOpen();
+        bookingManagementPage.clickBookingManagementPage();
+        bookingManagementPage.bookingManagementPageIsOpen();
+        bookingManagementPage.inputData();
+        bookingManagementPage.checkErrorOnDisplay();
     }
     @After
     public void tearDown(){
