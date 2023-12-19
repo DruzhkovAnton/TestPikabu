@@ -1,57 +1,32 @@
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-import java.time.Instant;
+import static com.codeborne.selenide.Selenide.$;
 
 public class InfoPage {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    @FindBy(css = "[href='/information']")
-    private WebElement information;
-    @FindBy(css = "[href='/information#flight']")
-    private WebElement informationFly;
-    @FindBy(css = "[href='/information#useful']")
-    private WebElement informationUseFul;
-    @FindBy(css = "[href='/information#company']")
-    private WebElement informationCompany;
-    public InfoPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
 
-    public InfoPage(WebDriver driver, WebDriverWait wait){
-        this.driver = driver;
-        this.wait = wait;
-        PageFactory.initElements(driver, this);
-    }
-
-
+    private SelenideElement information = $("[href='/information']");
+    private SelenideElement informationFly = $("[href='/information#flight']");
+    private SelenideElement informationUseFul = $("[href='/information#useful']");
+    private SelenideElement informationCompany = $("[href='/information#company']");
 
     private void moveMouseInformation(){
-        Actions action = new Actions(driver);
-        action.moveToElement(information).build().perform();
-        wait.until(ExpectedConditions.visibilityOf(information));
+        information.hover().shouldBe(Condition.visible,Duration.ofSeconds(10));
     }
 
     private boolean informationFlyOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(informationFly));
+        informationFly.shouldBe(Condition.visible,Duration.ofSeconds(10));
         return informationFly.isDisplayed();
     }
 
     private boolean informationUseFulOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(informationUseFul));
+        informationUseFul.shouldBe(Condition.visible,Duration.ofSeconds(10));
         return informationUseFul.isDisplayed();
     }
 
     private boolean informationCompanyOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(informationCompany));
+        informationCompany.shouldBe(Condition.visible,Duration.ofSeconds(10));
         return informationCompany.isDisplayed();
     }
 

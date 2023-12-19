@@ -1,75 +1,49 @@
+import com.codeborne.selenide.SelenideElement;
 import org.junit.Assert;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class OrderTiketPage {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    @FindBy(xpath = "//div[contains(@class, 'dp-1glhebn-root-textVisible') and text() = 'Поиск билета']")
-    private WebElement searchTicketButton;
-    @FindBy(css = "[placeholder='Откуда'][autocomplete='off']")
-    private WebElement cityFrom;
-    @FindBy(css = "[placeholder='Куда'][autocomplete='off']")
-    private WebElement cityIn;
-    @FindBy(css = "[placeholder='Туда']")
-    private WebElement departureDateThere;
-    @FindBy(css = "[placeholder='Обратно']")
-    private WebElement departureDateReturn;
-    @FindBy(css = "[type='submit']")
-    private WebElement searchButton;
 
-    @FindBy(css = "[data-errored='true'] [placeholder='Туда']")
-    private WebElement dataErorThere;
-
-    public OrderTiketPage(WebDriver driver, WebDriverWait wait){
-        this.driver = driver;
-        this.wait = wait;
-        PageFactory.initElements(driver, this);
-    }
+    private SelenideElement searchTicketButton = $x("//div[contains(@class, 'dp-1glhebn-root-textVisible') and text() = 'Поиск билета']");
+    private SelenideElement cityFrom = $("[placeholder='Откуда'][autocomplete='off']");
+    private SelenideElement cityIn = $("[placeholder='Куда'][autocomplete='off']");
+    private SelenideElement departureDateThere = $("[placeholder='Туда']");
+    private SelenideElement departureDateReturn = $("[placeholder='Обратно']");
+    private SelenideElement searchButton = $("[type='submit']");
+    private SelenideElement dataErorThere = $("[data-errored='true'] [placeholder='Туда']");
 
     private boolean searchTicketButtonOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(searchTicketButton));
-        return searchTicketButton.isDisplayed();
+        return searchTicketButton.shouldBe(visible).isDisplayed();
     }
 
     private boolean cityFromOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(cityFrom));
-        return cityFrom.isDisplayed();
+        return cityFrom.shouldBe(visible).isDisplayed();
     }
     private void cityFromInput(String city){
-        cityFrom.sendKeys(city);
-        cityFrom.sendKeys(Keys.ENTER);
+        cityFrom.setValue(city).pressEnter();
     }
 
 
     private boolean cityInOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(cityIn));
-        return cityIn.isDisplayed();
+        return cityIn.shouldBe(visible).isDisplayed();
     }
 
     private void cityInInput(String city){
-        cityIn.sendKeys(city);
-        cityIn.sendKeys(Keys.ENTER);
+        cityIn.setValue(city).pressEnter();
     }
 
     private boolean departureDateThereOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(departureDateThere));
-        return departureDateThere.isDisplayed();
+        return departureDateThere.shouldBe(visible).isDisplayed();
     }
 
     private boolean departureDateReturnOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(departureDateReturn));
-        return departureDateReturn.isDisplayed();
+        return departureDateReturn.shouldBe(visible).isDisplayed();
     }
 
     private boolean dataErorThereOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(dataErorThere));
-        return dataErorThere.isDisplayed();
+        return dataErorThere.shouldBe(visible).isDisplayed();
     }
 
     public void searchTiketIsOpen() {

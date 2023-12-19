@@ -1,39 +1,29 @@
-import net.bytebuddy.asm.Advice;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+import java.time.Duration;
+
+import static com.codeborne.selenide.Selenide.*;
+import static java.time.Duration.ofSeconds;
 
 public class MainPage {
-    private  WebDriverWait wait;
-    private WebDriver driver;
-    @FindBy(xpath = "//img[contains(@src, 'logo-rus-white')]")
-    private WebElement logo;
+    private Selenide selenide;
+
+    private SelenideElement logo = $x("//img[contains(@src, 'logo-rus-white')]");
 
     private String titleTextExpected = "Авиакомпания «Победа» - купить авиабилеты онлайн, дешёвые билеты на самолёт, прямые и трансферные рейсы с пересадками";
 
-    public MainPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
-    public MainPage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
-        this.wait = wait;
-        PageFactory.initElements(driver, this);
-    }
 
     private String titleText(){
-        return driver.getTitle();
+        return title();
     }
 
     private boolean logoOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(logo));
+        logo.shouldBe(Condition.visible, Duration.ofSeconds(10));
         return logo.isDisplayed();
     }
 

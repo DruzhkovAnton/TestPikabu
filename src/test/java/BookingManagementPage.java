@@ -1,59 +1,39 @@
+import com.codeborne.selenide.SelenideElement;
 import org.junit.Assert;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class BookingManagementPage {
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private SelenideElement bookingManagementButton = $x("//div[contains(@class, 'dp-1glhebn-root-textVisible') and text() = 'Управление бронированием']");
+    private SelenideElement surnameClient = $("[placeholder='Фамилия клиента']");
+    private SelenideElement orderNumber = $("[placeholder='Номер заказа или билета']");
+    private SelenideElement searchButton = $x("//button[text()='Поиск']");
+    private SelenideElement errorMessage = $x("//div[text()='Некорректный номер']");
 
-    @FindBy(xpath = "//div[contains(@class, 'dp-1glhebn-root-textVisible') and text() = 'Управление бронированием']")
-    private WebElement bookingManagementButton;
-    @FindBy(css = "[placeholder='Фамилия клиента']")
-    private WebElement surnameClient;
-    @FindBy(css = "[placeholder='Номер заказа или билета']")
-    private WebElement orderNumber;
-    @FindBy(xpath = "//button[text()='Поиск']")
-    private WebElement searchButton;
-    @FindBy(xpath = "//div[text()='Некорректный номер']")
-    private WebElement errorMessage;
-
-    public BookingManagementPage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
-        this.wait = wait;
-        PageFactory.initElements(driver, this);
-    }
 
     private boolean errorMessageOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(errorMessage));
-        return errorMessage.isDisplayed();
+        return errorMessage.shouldBe(visible).isDisplayed();
     }
 
     private boolean searchButtonOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(searchButton));
-        return searchButton.isDisplayed();
+        return searchButton.shouldBe(visible).isDisplayed();
     }
 
     private boolean surnameClientOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(surnameClient));
-        return surnameClient.isDisplayed();
+        return surnameClient.shouldBe(visible).isDisplayed();
     }
 
     private boolean orderNumberOnDisplay(){
-        wait.until(ExpectedConditions.visibilityOf(orderNumber));
-        return orderNumber.isDisplayed();
+        return orderNumber.shouldBe(visible).isDisplayed();
     }
 
     private void surnameClientInput(String surname){
-        surnameClient.sendKeys(surname);
+        surnameClient.setValue(surname);
     }
 
     private void orderNumberInput(String order){
-        orderNumber.sendKeys(order);
+        orderNumber.setValue(order);
     }
 
 
