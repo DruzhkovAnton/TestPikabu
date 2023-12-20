@@ -1,4 +1,5 @@
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -6,13 +7,13 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class OrderTiketPage {
 
-    private SelenideElement searchTicketButton = $x("//div[contains(@class, 'dp-1glhebn-root-textVisible') and text() = 'Поиск билета']");
-    private SelenideElement cityFrom = $("[placeholder='Откуда'][autocomplete='off']");
-    private SelenideElement cityIn = $("[placeholder='Куда'][autocomplete='off']");
-    private SelenideElement departureDateThere = $("[placeholder='Туда']");
-    private SelenideElement departureDateReturn = $("[placeholder='Обратно']");
-    private SelenideElement searchButton = $("[type='submit']");
-    private SelenideElement dataErorThere = $("[data-errored='true'] [placeholder='Туда']");
+    private final SelenideElement searchTicketButton = $x("//div[contains(@class, 'dp-1glhebn-root-textVisible') and text() = 'Поиск билета']");
+    private final SelenideElement cityFrom = $("[placeholder='Откуда'][autocomplete='off']");
+    private final SelenideElement cityIn = $("[placeholder='Куда'][autocomplete='off']");
+    private final SelenideElement departureDateThere = $("[placeholder='Туда']");
+    private final SelenideElement departureDateReturn = $("[placeholder='Обратно']");
+    private final SelenideElement searchButton = $("[type='submit']");
+    private final SelenideElement dataErorThere = $("[data-errored='true'] [placeholder='Туда']");
 
     private boolean searchTicketButtonOnDisplay(){
         return searchTicketButton.shouldBe(visible).isDisplayed();
@@ -21,8 +22,8 @@ public class OrderTiketPage {
     private boolean cityFromOnDisplay(){
         return cityFrom.shouldBe(visible).isDisplayed();
     }
-    private void cityFromInput(String city){
-        cityFrom.setValue(city).pressEnter();
+    private void cityFromInput(){
+        cityFrom.setValue("Москва").pressEnter();
     }
 
 
@@ -30,8 +31,8 @@ public class OrderTiketPage {
         return cityIn.shouldBe(visible).isDisplayed();
     }
 
-    private void cityInInput(String city){
-        cityIn.setValue(city).pressEnter();
+    private void cityInInput(){
+        cityIn.setValue("Санкт-Петербург").pressEnter();
     }
 
     private boolean departureDateThereOnDisplay(){
@@ -46,24 +47,25 @@ public class OrderTiketPage {
         return dataErorThere.shouldBe(visible).isDisplayed();
     }
 
+    @Step("123")
     public void searchTiketIsOpen() {
-        Assert.assertEquals(this.searchTicketButtonOnDisplay(),true);
-        Assert.assertEquals(this.cityFromOnDisplay(),true);
-        Assert.assertEquals(this.cityInOnDisplay(),true);
-        Assert.assertEquals(this.departureDateThereOnDisplay(),true);
-        Assert.assertEquals(this.departureDateReturnOnDisplay(),true);
+        Assert.assertTrue(this.searchTicketButtonOnDisplay());
+        Assert.assertTrue(this.cityFromOnDisplay());
+        Assert.assertTrue(this.cityInOnDisplay());
+        Assert.assertTrue(this.departureDateThereOnDisplay());
+        Assert.assertTrue(this.departureDateReturnOnDisplay());
     }
-
+    @Step("123123")
     public void enterSearchCriteria() {
-        cityFromInput("Москва");
-        cityInInput("Санкт-Петербург");
+        cityFromInput();
+        cityInInput();
     }
-
+    @Step("123123123")
     public void clickButtonSearch() {
         searchButton.click();
     }
-
+    @Step("312312")
     public void checkFieldThere() {
-        Assert.assertEquals(dataErorThereOnDisplay(),true);
+        Assert.assertTrue(dataErorThereOnDisplay());
     }
 }

@@ -1,15 +1,17 @@
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+//import io.qameta.allure.Step;
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$;
 
 public class InfoPage {
 
-    private SelenideElement information = $("[href='/information']");
-    private SelenideElement informationFly = $("[href='/information#flight']");
-    private SelenideElement informationUseFul = $("[href='/information#useful']");
-    private SelenideElement informationCompany = $("[href='/information#company']");
+    private final SelenideElement information = $("[href='/information']");
+    private final SelenideElement informationFly = $("[href='/information#flight']");
+    private final SelenideElement informationUseFul = $("[href='/information#useful']");
+    private final SelenideElement informationCompany = $("[href='/information#company']");
 
     private void moveMouseInformation(){
         information.hover().shouldBe(Condition.visible,Duration.ofSeconds(10));
@@ -30,10 +32,11 @@ public class InfoPage {
         return informationCompany.isDisplayed();
     }
 
+    @Step("1323")
     public void informationMenuIsOpen(){
         this.moveMouseInformation();
-        Assert.assertEquals(this.informationFlyOnDisplay(),true);
-        Assert.assertEquals(this.informationUseFulOnDisplay(),true);
-        Assert.assertEquals(this.informationCompanyOnDisplay(),true);
+        Assert.assertTrue(this.informationFlyOnDisplay());
+        Assert.assertTrue(this.informationUseFulOnDisplay());
+        Assert.assertTrue(this.informationCompanyOnDisplay());
     }
 }

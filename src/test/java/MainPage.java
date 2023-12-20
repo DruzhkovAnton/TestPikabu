@@ -1,21 +1,16 @@
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.junit.Assert;
-import org.openqa.selenium.By;
+
 
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.*;
-import static java.time.Duration.ofSeconds;
 
 public class MainPage {
-    private Selenide selenide;
-
-    private SelenideElement logo = $x("//img[contains(@src, 'logo-rus-white')]");
-
-    private String titleTextExpected = "Авиакомпания «Победа» - купить авиабилеты онлайн, дешёвые билеты на самолёт, прямые и трансферные рейсы с пересадками";
+    private final SelenideElement logo = $x("//img[contains(@src, 'logo-rus-white')]");
 
 
     private String titleText(){
@@ -27,8 +22,10 @@ public class MainPage {
         return logo.isDisplayed();
     }
 
+    @Step("")
     public void siteIsOpen(){
-        Assert.assertEquals(this.titleText(),titleTextExpected);
-        Assert.assertEquals(this.logoOnDisplay(),true);
+        String titleTextExpected = "Авиакомпания «Победа» - купить авиабилеты онлайн, дешёвые билеты на самолёт, прямые и трансферные рейсы с пересадками";
+        Assert.assertEquals(this.titleText(), titleTextExpected);
+        Assert.assertTrue(this.logoOnDisplay());
     }
 }
