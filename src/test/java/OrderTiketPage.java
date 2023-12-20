@@ -22,8 +22,8 @@ public class OrderTiketPage {
     private boolean cityFromOnDisplay(){
         return cityFrom.shouldBe(visible).isDisplayed();
     }
-    private void cityFromInput(){
-        cityFrom.setValue("Москва").pressEnter();
+    private void cityFromInput(String city){
+        cityFrom.setValue(city).pressEnter();
     }
 
 
@@ -31,8 +31,8 @@ public class OrderTiketPage {
         return cityIn.shouldBe(visible).isDisplayed();
     }
 
-    private void cityInInput(){
-        cityIn.setValue("Санкт-Петербург").pressEnter();
+    private void cityInInput(String city){
+        cityIn.setValue(city).pressEnter();
     }
 
     private boolean departureDateThereOnDisplay(){
@@ -47,7 +47,7 @@ public class OrderTiketPage {
         return dataErorThere.shouldBe(visible).isDisplayed();
     }
 
-    @Step("123")
+    @Step(" убедиться, что блок с поиском билета действительно отображается (есть поле Откуда, Куда, Дата вылета Туда, Дата вылета Обратно)")
     public void searchTiketIsOpen() {
         Assert.assertTrue(this.searchTicketButtonOnDisplay());
         Assert.assertTrue(this.cityFromOnDisplay());
@@ -55,16 +55,16 @@ public class OrderTiketPage {
         Assert.assertTrue(this.departureDateThereOnDisplay());
         Assert.assertTrue(this.departureDateReturnOnDisplay());
     }
-    @Step("123123")
+    @Step("Ввести критерии поиска и нажать ентер")
     public void enterSearchCriteria() {
-        cityFromInput();
-        cityInInput();
+        cityFromInput("Москва");
+        cityInInput("Санкт-Петербург");
     }
-    @Step("123123123")
+    @Step("Нажать кнопку «Поиск»")
     public void clickButtonSearch() {
         searchButton.click();
     }
-    @Step("312312")
+    @Step("Убедиться, что около поля «Туда» появилась красная обводка")
     public void checkFieldThere() {
         Assert.assertTrue(dataErorThereOnDisplay());
     }

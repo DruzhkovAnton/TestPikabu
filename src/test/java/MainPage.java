@@ -22,10 +22,10 @@ public class MainPage {
         return logo.isDisplayed();
     }
 
-    @Step("")
-    public void siteIsOpen(){
+    @Step("Убедиться, что сайт открылся")
+    public void siteIsOpen(String titleExpected){
         String titleTextExpected = "Авиакомпания «Победа» - купить авиабилеты онлайн, дешёвые билеты на самолёт, прямые и трансферные рейсы с пересадками";
-        Assert.assertEquals(this.titleText(), titleTextExpected);
+        Assert.assertEquals(this.titleText(), titleExpected);
         Assert.assertTrue(this.logoOnDisplay());
     }
 }

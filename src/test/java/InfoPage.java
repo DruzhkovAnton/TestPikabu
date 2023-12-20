@@ -32,9 +32,12 @@ public class InfoPage {
         return informationCompany.isDisplayed();
     }
 
-    @Step("1323")
-    public void informationMenuIsOpen(){
+    @Step("Навести мышку на пункт «Информация»")
+    public void mouseOverOnInformation(){
         this.moveMouseInformation();
+    }
+    @Step("Убедиться, что появилось всплывающее окно")
+    public void informationMenuIsOpen(){
         Assert.assertTrue(this.informationFlyOnDisplay());
         Assert.assertTrue(this.informationUseFulOnDisplay());
         Assert.assertTrue(this.informationCompanyOnDisplay());

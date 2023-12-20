@@ -39,22 +39,23 @@ public class BookingManagementPage {
     }
 
 
+    @Step("кликнуть на пункт «Управление бронированием»")
     public void clickBookingManagementPage() {
         bookingManagementButton.click();
     }
-    @Step("")
+    @Step("Убедиться, что открылась необходимая страница")
     public void bookingManagementPageIsOpen() {
         Assert.assertTrue(surnameClientOnDisplay());
         Assert.assertTrue(orderNumberOnDisplay());
         Assert.assertTrue(searchButtonOnDisplay());
     }
-    @Step("")
+    @Step("Ввести в поля ввода данные")
     public void inputData() {
         surnameClientInput("qwerty");
         orderNumberInput("XXXXXXXX");
         searchButton.click();
     }
-    @Step("")
+    @Step(" Убедиться, что в новой вкладке на экране отображается текст ошибки «Некорректный номер»")
     public void checkErrorOnDisplay() {
         Assert.assertTrue(errorMessageOnDisplay());
     }
